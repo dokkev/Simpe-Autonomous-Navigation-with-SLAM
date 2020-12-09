@@ -34,6 +34,6 @@
   </group>
 
   <!-- node -->
-
+  <node name="auto_nav" pkg="hw4" type="auto_nav"/>
 
 </launch>
