@@ -64,7 +64,7 @@ SUBSCRIBER:
 
 The `maps` directory contains two sets of map data.
 1) `map.yaml` and `maps.pgm` were mapped by mannual control of the turtlebot
-2) `expl.yaml` and `expl.pgm` were mapped by autonomously by the turtlebot
+2) `expl.yaml` and `expl.pgm` were mapped autonomously by the turtlebot
 
 
 ## REUSLTS
