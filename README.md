@@ -1,6 +1,13 @@
 # Turtlebot 3: SLAM and Navigation
 ### Written by DK Kang
 
+### UPDATE:
+
+This is a still on going project. There are some future work to be added
+- A very simpe navigation algorithm is implemented, and it experiences setting the goal outside the reachable distance. 
+- This will be tested on a real robot outside the house enviroment gazebo
+- Ultimately, the goal is to make a robot to navigate any sort of enviroments including ramp without collision
+
 ## OBJECTIVE
 The goal is to use the `Turtlebot 3` to autonomously map an environment and then navigate within the map using the `slam_toolbox`
 
@@ -72,46 +79,6 @@ The `maps` directory contains two sets of map data.
 make sure to source your workspace by `source ~/ws/devel/setup.bash`
 
 Demo gif files are fast-forwarded for your convinence. Refer to the YouTube link for the full video.
-
-### SLAM with mannual control
-
-`roslaunch hw4 start_slam.launch`
-
-This launch file allows you to drive the turtlebot with your keyboard and do mapping in a house in `gazebo` simulation
-
-Keyboard Control:
-W - go foward
-S - stop
-A - turn counter-clockwise
-D - turn clockwise
-X - reverse
-
-### Navigation with known mapping
-
-`roslaunch hw4 nav_stack.launch`
-
-This launch file allows you to navigate your turtlebot in the house in `gazebo` simulation
-
-You can navigate by moving the robot by setting 2D navigation goals in Rviz
-
-
-![nav_stack](https://media.giphy.com/media/lpNVGeCa73QhOi9MxV/giphy.gif)
-
-
-Full Video: https://youtu.be/LqCy_FP7HPU
-
-
-### SLAM & Navigation 
-
-`roslaunch hw4 slam_stack.launch`
-
-This launch file allows you to do mapping and navigate your turtlebot in the house in `gazebo` simulation.
-
-By moving the robot by setting 2D navigation goals in Rviz, the turtlebot does mapping while navigating.
-
-![slam_stack](https://media.giphy.com/media/KIoptgov1MiLS1YMbx/giphy.gif)
-
-Full Video: https://youtu.be/OFxcJqrekvE
 
 
 ### Autonomous SLAM & Navigation
