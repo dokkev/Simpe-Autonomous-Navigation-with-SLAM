@@ -9,6 +9,9 @@ project(hw4)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
 rospy
+std_msgs
+nav_msgs
+actionlib_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -103,7 +106,7 @@ rospy
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES hw4
-#  CATKIN_DEPENDS other_catkin_pkg
+CATKIN_DEPENDS rospy std_msgs nav_msgs std_msgs actionlib_msgs
 #  DEPENDS system_lib
 )
 
@@ -157,10 +160,10 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# catkin_install_python(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+catkin_install_python(PROGRAMS
+nodes/auto_nav
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html

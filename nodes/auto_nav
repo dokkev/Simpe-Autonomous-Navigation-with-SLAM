@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+
+import rospy
+import std_msgs.msg
+import rospy
+import numpy as np
+import actionlib
+import random
+from tf import transformations as transform
+from nav_msgs.msg import Odometry
+from nav_msgs.msg import OccupancyGrid
+from geometry_msgs.msg import PoseStamped,Pose
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseActionFeedback
+
+
+class AutoNavi:
+
+    """
+    
+    """
+
+
+    def __init__(self):
+        
+        rospy.init_node("auto_nav")
+
+        self.goal_pub = rospy.Publisher("move_base_simple/goal",PoseStamped, queue_size=10,latch=True)
+        self.map_sub = rospy.Subscriber("map",OccupancyGrid,self.map_callback)
+        self.client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+        self.client.wait_for_server()
+        self.action_time = 1
+        self.count = 0
+        self.navi()  
+     
+    def map_callback(self,msg):
+        self.map = np.array(msg.data)
+        
+    def navi(self):
+       
+        while not rospy.is_shutdown():
+
+            x = random.uniform(-0.5,0.5)           
+            y = random.uniform(-0.5,0.5)
+            
+            if self.count == 0:
+                self.x0 = -4.45
+                self.y0 = -0.45
+                self.x = self.x0+x
+                self.y = self.y0+y
+                self.count = self.count + 1
+                print('this is initial!',self.x,self.y)
+                self.go()
+                self.client.wait_for_result(timeout=rospy.Duration(self.action_time))
+            else:
+                self.x0 = self.x
+                self.y0 = self.y
+                self.x = self.x0+x
+                self.y = self.y0+y
+                self.count = self.count + 1
+                print('goal coordinates: ',self.x,self.y)
+                self.go()
+                self.client.wait_for_result(timeout=rospy.Duration(self.action_time))
+
+
+        
+    def go(self):
+        header = std_msgs.msg.Header()
+        header.stamp = rospy.Time.now()
+        header.frame_id = "map"
+        
+        ## Pose ##
+        pose = Pose()
+
+        pose.position.x = self.x
+        pose.position.y = self.y
+        pose.position.z = 0
+
+        q = transform.quaternion_from_euler(0, 0, 0)
+
+        pose.orientation.x = q[0]
+        pose.orientation.y = q[1]
+        pose.orientation.z = q[2]
+        pose.orientation.w = q[3]
+        move = MoveBaseGoal()
+        move.target_pose.header = header
+        move.target_pose.pose = pose
+        self.client.send_goal(move)
+        
+    
+if __name__ == "__main__":
+    try:
+        rospy.init_node("auto_nav")
+        AutoNavi()
+        rospy.spin()
+
+    except rospy.ROSInterruptException:
+        pass

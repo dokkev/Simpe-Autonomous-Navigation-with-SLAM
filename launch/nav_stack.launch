@@ -1,0 +1,18 @@
+<launch>
+
+
+  <!-- Argument -->
+  <arg name="map_file" default="$(find hw4)/maps/map.yaml"/>
+
+  <!-- Gazebo -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch">
+  </include>  
+
+
+  <!-- Turtlebot3_navigation -->
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+  <arg name="map_file" value= "$(arg map_file)"/>
+  </include>  
+
+
+</launch>
