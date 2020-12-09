@@ -77,7 +77,14 @@ Demo gif files are fast-forwarded for your convinence. Refer to the YouTube link
 
 `roslaunch hw4 start_slam.launch`
 
-This launch file allows you to drive the turtlebot with your keyboard and di mapping in a house in `gazebo` simulation
+This launch file allows you to drive the turtlebot with your keyboard and do mapping in a house in `gazebo` simulation
+
+Keyboard Control:
+W - go foward
+S - stop
+A - turn counter-clockwise
+D - turn clockwise
+X - reverse
 
 ### Navigation with known mapping
 
