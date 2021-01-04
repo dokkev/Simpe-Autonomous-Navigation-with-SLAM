@@ -2,7 +2,7 @@
 
 
   <!-- Argument -->
-  <arg name="map_file" default="$(find hw4)/maps/map.yaml"/>
+  <arg name="map_file" default="$(find Simpe-Autonomous-Navigation-with-SLAM)/maps/map.yaml"/>
 
   <!-- Gazebo -->
   <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch">

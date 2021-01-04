@@ -35,10 +35,16 @@ class AutoNavi:
         self.client.wait_for_server()
         self.wait = 5
         self.count = 0
+        self.origin = np.array([-10.000000, -10.000000])
+        # resolution
+        self.res = 0.05
         self.navi()  
      
     def map_callback(self,msg):
-        self.map = np.array(msg.data)
+        
+        self.map = np.array(msg.data).reshape((msg.info.width,msg.info.height))
+
+        # I got this idea from https://www.programcreek.com/python/example/95997/nav_msgs.msg.OccupancyGrids
         
     def navi(self):
        
@@ -55,6 +61,14 @@ class AutoNavi:
                 self.y0 = -0.45
                 self.x = self.x0+x
                 self.y = self.y0+y
+
+                map_x = (self.x-self.origin[0])/self.res
+                map_y = (self.y-self.origin[1])/self.res
+
+                mapxy = np.array([map_x,map_y])
+                M = mapxy.astype(int)
+
+              
                 self.count = self.count + 1
                 print('this is initial!',self.x,self.y)
                 self.go()
@@ -64,6 +78,12 @@ class AutoNavi:
                 self.x0 = self.x
                 self.y0 = self.y
 
+                map_x = (self.x-self.origin[0])/self.res
+                map_y = (self.y-self.origin[1])/self.res
+
+                mapxy = np.array([map_x,map_y])
+                M = mapxy.astype(int)
+             
                 self.x = self.x0+x
                 self.y = self.y0+y
                 self.count = self.count + 1
@@ -95,8 +115,7 @@ class AutoNavi:
         move.target_pose.header = header
         move.target_pose.pose = pose
         self.client.send_goal(move)
-        
-    
+            
 if __name__ == "__main__":
     try:
         rospy.init_node("auto_nav")

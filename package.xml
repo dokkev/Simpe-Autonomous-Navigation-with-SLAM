@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>hw4</name>
+  <name>Simpe-Autonomous-Navigation-with-SLAM</name>
   <version>0.0.0</version>
   <description>This is package description. It includes some turtlebot3 packages </description>
 
